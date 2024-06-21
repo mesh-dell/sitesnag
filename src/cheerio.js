@@ -1,8 +1,14 @@
 const cheerio = require("cheerio");
 
-const getTextContent = (html, selectorCSS) => {
+const getTextContent = (html, selectorCSS, options) => {
   const $ = cheerio.load(html);
-  const textContent = $(`.${selectorCSS}`).text();
+
+  let textContent;
+  if (options.first) {
+    textContent = $(`.${selectorCSS}`).first().text();
+    return textContent;
+  }
+  textContent = $(`.${selectorCSS}`).text();
   return textContent;
 };
 
