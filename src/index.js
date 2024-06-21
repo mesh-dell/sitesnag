@@ -26,7 +26,6 @@ program
 
     getHtml(url).then((html) => {
       const textContent = getTextContent(html, selector);
-      console.log(html);
       console.log(
         textContent.length == 0
           ? "No elements found for the given selector."
