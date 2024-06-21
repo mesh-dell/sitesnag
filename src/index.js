@@ -19,19 +19,19 @@ program
   .argument("<URL>", "URL to scrape")
   .argument("<Selector>", "CSS selector")
   .option("--first", "display just the first element's text content")
-  .option("-s, --separator <char>", "separator character", ",")
   .action((url, selector, options) => {
-    const limit = options.first ? 1 : undefined;
-    // console.log(url.split(options.separator, limit) + "\n" + selector);
-
-    getHtml(url).then((html) => {
-      const textContent = getTextContent(html, selector);
-      console.log(
-        textContent.length == 0
-          ? "No elements found for the given selector."
-          : textContent
-      );
-    });
+    try {
+      getHtml(url).then((html) => {
+        const textContent = getTextContent(html, selector, options);
+        console.log(
+          textContent.length == 0
+            ? "No elements found for the given selector."
+            : textContent
+        );
+      });
+    } catch (error) {
+      console.error("Error: ", error.message);
+    }
   });
 
 program.parse();
