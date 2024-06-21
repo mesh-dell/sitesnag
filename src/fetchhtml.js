@@ -1,16 +1,15 @@
+const puppeteer = require("puppeteer");
+
 async function getHtml(url) {
-  const response = await fetch(url);
-  switch (response.status) {
-    // status "OK"
-    case 200:
-      var template = await response.text();
-      break;
-    // status "Not Found"
-    case 404:
-      console.log("Not Found");
-      break;
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto(url, { waitUntil: "networkidle0" });
+    const html = await page.content();
+    return html;
+  } catch (error) {
+    console.error("Error fetching the URL:", error.message);
   }
-  return template;
 }
 
 module.exports = getHtml;
