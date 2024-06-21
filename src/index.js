@@ -1,4 +1,6 @@
 const { Command } = require("commander");
+const getHtml = require("./fetchhtml.js");
+const getTextContent = require("./cheerio.js");
 
 const program = new Command();
 
@@ -20,7 +22,17 @@ program
   .option("-s, --separator <char>", "separator character", ",")
   .action((url, selector, options) => {
     const limit = options.first ? 1 : undefined;
-    console.log(url.split(options.separator, limit) + "\n" + selector);
+    // console.log(url.split(options.separator, limit) + "\n" + selector);
+
+    getHtml(url).then((html) => {
+      const textContent = getTextContent(html, selector);
+      console.log(html);
+      console.log(
+        textContent.length == 0
+          ? "No elements found for the given selector."
+          : textContent
+      );
+    });
   });
 
 program.parse();
