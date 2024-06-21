@@ -1,7 +1,3 @@
-Certainly! Here's the revised README.md for your `sitesnag` CLI tool, where the URL is specified first followed by the CSS selector:
-
----
-
 # sitesnag
 
 **sitesnag** is a command-line interface (CLI) application that allows you to scrape text content from a web page using Puppeteer and Cheerio. It accepts a URL and a CSS selector as arguments using the `commander` module and prints the text content of the element that matches the selector. Additionally, it supports an option to display only the text content of the first matched element.
